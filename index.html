@@ -61,12 +61,10 @@
     document.getElementById("inform-success").style.display = 'none';
 // To get Random Number
      function generateRandomPin(){
-        document.getElementById('generate-pin').addEventListener('click',function(){
             let random = Math.random() * (9999-1000+1)+1000;
             let randomNum = parseInt(random);
             // console.log(randomNum);
             document.getElementById('random-value').value = randomNum;
-        })
      }
 //For User Value
      function userInputDigit(num){
@@ -76,7 +74,6 @@
      }
 //To check match or didn't match
      function toShowResult(){
-        document.getElementById('submit-data').addEventListener("click",function(){
            var generatedPin = document.getElementById('random-value').value;
            var inputPin = document.getElementById("number-input").value;
            if(generatedPin == inputPin){
@@ -85,7 +82,6 @@
            else{
             document.getElementById("inform-failure").style.display = 'block';
            }
-        })
      }
 //To remove all digits 
      function removeAllDigits(){
