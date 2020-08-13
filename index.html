@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pin-generator half-width">
+                    <input class="form-control" type="text" id="random-value">
+                    <button class="generate-btn" id="generate-pin" onclick="generateRandomPin()">Generate Pin</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-section half-width">
+                    <input class="form-control" type="text" id="number-input">
+                    <div class="numbers">
+                        <div class="calc-body">
+                            <div class="calc-button-row">
+                              <div class="button" onclick="userInputDigit(7)">7</div>
+                              <div class="button" onclick="userInputDigit(8)">8</div>
+                              <div class="button" onclick="userInputDigit(9)">9</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" onclick="userInputDigit(4)">4</div>
+                              <div class="button" onclick="userInputDigit(5)">5</div>
+                              <div class="button" onclick="userInputDigit(6)">6</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" onclick="userInputDigit(1)">1</div>
+                              <div class="button" onclick="userInputDigit(2)">2</div>
+                              <div class="button" onclick="userInputDigit(3)">3</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div class="button" onclick="removePreviousDigit()"><</div>
+                                <div class="button" onclick="userInputDigit(0)">0</div>
+                                <div class="button" onclick="removeAllDigits()">C</div>
+                            </div>
+                            <div>
+                                <button type="submit" class="submit-btn" id="submit-data" onclick="toShowResult()">Submit</button>
+                                <!-- <p class="action-left">3 try left</p> -->
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="notify-section">
+            <p class="notify" id="inform-failure">❌ Pin Didn't Match, Please try again</p>
+            <p class="notify" id="inform-success">✅ Pin Matched... Secret door is opening for you</p>
+        </div>
+    </div>
+<!-- JS Starts here -->
+ <script>
+//To hide Pin match/unmatched result
+    document.getElementById("inform-failure").style.display = 'none';
+    document.getElementById("inform-success").style.display = 'none';
+// To get Random Number
+     function generateRandomPin(){
+        document.getElementById('generate-pin').addEventListener('click',function(){
+            let random = Math.random() * (9999-1000+1)+1000;
+            let randomNum = parseInt(random);
+            // console.log(randomNum);
+            document.getElementById('random-value').value = randomNum;
+        })
+     }
+//For User Value
+     function userInputDigit(num){
+        var primaryInput = document.getElementById('number-input').value;
+        var displayInput = primaryInput + num;
+        document.getElementById('number-input').value = displayInput;
+     }
+//To check match or didn't match
+     function toShowResult(){
+        document.getElementById('submit-data').addEventListener("click",function(){
+           var generatedPin = document.getElementById('random-value').value;
+           var inputPin = document.getElementById("number-input").value;
+           if(generatedPin == inputPin){
+            document.getElementById("inform-success").style.display = 'block';
+           }
+           else{
+            document.getElementById("inform-failure").style.display = 'block';
+           }
+        })
+     }
+//To remove all digits 
+     function removeAllDigits(){
+        document.getElementById('number-input').value = '';
+     }
+//To remove previous digit
+     function removePreviousDigit(){
+        //(This one also works) document.getElementById('number-input').value = Math.round(document.getElementById('number-input').value / 10);
+        
+        var newInput = document.getElementById('number-input').value;
+        document.getElementById('number-input').value = newInput.slice(0,-1);
+     }
+ </script>
+</body>
+</html>
